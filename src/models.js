@@ -7,13 +7,40 @@ export const movies = {
       imDbRating: 9.2,
       fullTitle: 'Movie 1 (2020)',
       isFavourite: false
+    },
+    {
+      id: Date.now + 1,
+      title: 'Movie 2',
+      image: '',
+      imDbRating: 9.2,
+      fullTitle: 'Movie 2 (2020)',
+      isFavourite: false
+    },
+    {
+      id: Date.now + 2,
+      title: 'Movie 3',
+      image: '',
+      imDbRating: 9.2,
+      fullTitle: 'Movie 3 (2020)',
+      isFavourite: false
+    },
+    {
+      id: Date.now + 3,
+      title: 'Movie 4',
+      image: '',
+      imDbRating: 9.2,
+      fullTitle: 'Movie 4 (2020)',
+      isFavourite: false
     }
   ],
   reducers: {
     toggleIsFavourite(state, id) {
-      const movie = state.find(movie => movie.id === id);
-      const newState = state.filter(movie => movie.id !== id);
-      return [...newState, { ...movie, isFavourite: !movie.isFavourite }];
+      return state.map(movie => {
+        if (movie.id === id) {
+          return { ...movie, isFavourite: !movie.isFavourite };
+        }
+        return movie;
+      });
     }
   },
   effects: {
