@@ -1,7 +1,9 @@
+const apiKey = process.env.REACT_APP_API_KEY;
+
 export const movies = {
   state: [
     {
-      id: Date.now,
+      id: Date.now(),
       title: 'Movie 1',
       image: '',
       imDbRating: 9.2,
@@ -9,7 +11,7 @@ export const movies = {
       isFavourite: false
     },
     {
-      id: Date.now + 1,
+      id: Date.now() + 132,
       title: 'Movie 2',
       image: '',
       imDbRating: 9.2,
@@ -17,7 +19,7 @@ export const movies = {
       isFavourite: false
     },
     {
-      id: Date.now + 2,
+      id: Date.now() + 212,
       title: 'Movie 3',
       image: '',
       imDbRating: 9.2,
@@ -25,7 +27,7 @@ export const movies = {
       isFavourite: false
     },
     {
-      id: Date.now + 3,
+      id: Date.now() + 334,
       title: 'Movie 4',
       image: '',
       imDbRating: 9.2,
@@ -44,10 +46,11 @@ export const movies = {
     }
   },
   effects: {
-    async fetchMovies(state, apiUrl) {
-      const response = await fetch(apiUrl);
+    async fetchMovies(state) {
+      const response = await fetch(
+        `https://imdb-api.com/en/API/MostPopularMovies/${apiKey}`
+      );
       const result = await response.json();
-      console.log(response);
 
       return [...state, ...result.items];
     }

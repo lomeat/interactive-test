@@ -22,6 +22,8 @@ const mapDispatch = dispatch => ({
 
 export const Favourite = connect(mapState, mapDispatch)(FavouritePage);
 
+// Styles
+
 const Li = styled.li`
   :hover {
     cursor: pointer;
