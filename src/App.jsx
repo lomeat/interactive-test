@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
-import { Home } from './components/Home';
-import { Favourite } from './containers/Favourite';
+import { Home } from './Home';
+import { Favourite } from './Favourite';
 
 export const App = props => {
   return (
@@ -30,12 +30,12 @@ export const App = props => {
 };
 
 const Wrapper = styled.div`
-  width: 1000px;
   display: flex;
   justify-content: center;
 `;
 
 const Container = styled.div`
+  width: 1000px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 30px;

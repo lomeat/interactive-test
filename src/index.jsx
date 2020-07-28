@@ -7,6 +7,7 @@ import { createGlobalStyle } from 'styled-components';
 
 import { App } from './App';
 import * as serviceWorker from './serviceWorker';
+import * as models from './models';
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -15,7 +16,9 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const store = init();
+const store = init({
+  models
+});
 
 ReactDOM.render(
   <Provider store={store}>
