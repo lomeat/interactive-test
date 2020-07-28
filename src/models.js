@@ -20,7 +20,7 @@ export const movies = {
     async fetchMovies(state, apiUrl) {
       const response = await fetch(apiUrl);
       const result = await response.json();
-      console.log(result);
+      console.log(response);
 
       return [...state, ...result.items];
     }

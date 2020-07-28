@@ -9,9 +9,9 @@ const FavouritePage = ({ movies, toggleIsFavourite }) => {
     <>
       <ul>
         {filteredMovies.map(movie => (
-          <li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
+          <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
             {movie.title}
-          </li>
+          </Li>
         ))}
       </ul>
     </>
@@ -27,3 +27,9 @@ const mapDispatch = dispatch => ({
 });
 
 export const Favourite = connect(mapState, mapDispatch)(FavouritePage);
+
+const Li = styled.li`
+  :hover {
+    cursor: pointer;
+  }
+`;

@@ -2,18 +2,24 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
+const apiKey = process.env.REACT_APP_API_KEY;
+
 const HomePage = ({ fetchMovies, movies, toggleIsFavourite }) => {
   useEffect(() => {
-    fetchMovies('https://imdb-api.com/en/API/Top250Movies/k_QBHEB7Le');
+    fetchMovies(`https://imdb-api.com/en/API/Top250Movies/${apiKey}`);
   }, [fetchMovies]);
 
   return (
     <>
       <ul>
         {movies.map(movie => (
-          <li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
+          <Li
+            isFavourite={movie.isFavourite}
+            key={movie.id}
+            onClick={() => toggleIsFavourite(movie.id)}
+          >
             {movie.title}
-          </li>
+          </Li>
         ))}
       </ul>
     </>
@@ -30,3 +36,10 @@ const mapDispatch = dispatch => ({
 });
 
 export const Home = connect(mapState, mapDispatch)(HomePage);
+
+const Li = styled.li`
+  font-weight: ${props => (props.isFavourite ? 'bold' : 'regular')};
+  :hover {
+    cursor: pointer;
+  }
+`;
