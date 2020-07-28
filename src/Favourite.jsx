@@ -3,19 +3,13 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 
 const FavouritePage = ({ movies, toggleIsFavourite }) => {
-  const filteredMovies = movies.filter(movie => movie.isFavourite === true);
+  const favMovies = movies.filter(movie => movie.isFavourite === true);
 
-  return (
-    <>
-      <ul>
-        {filteredMovies.map(movie => (
-          <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
-            {movie.title}
-          </Li>
-        ))}
-      </ul>
-    </>
-  );
+  return favMovies.map(movie => (
+    <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
+      {movie.title}
+    </Li>
+  ));
 };
 
 const mapState = state => ({

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { init } from '@rematch/core';
+import createLoadingPlugin from '@rematch/loading';
 import 'normalize.css';
 import { createGlobalStyle } from 'styled-components';
 
@@ -16,7 +17,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
+const loadingPlugin = createLoadingPlugin();
+
 const store = init({
+  plugins: [loadingPlugin],
   models
 });
 

@@ -1,33 +1,32 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import Spinner from 'react-spinkit';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 
-const HomePage = ({ fetchMovies, movies, toggleIsFavourite }) => {
+const HomePage = ({ fetchMovies, movies, toggleIsFavourite, isLoading }) => {
   useEffect(() => {
     fetchMovies(`https://imdb-api.com/en/API/Top250Movies/${apiKey}`);
   }, [fetchMovies]);
 
-  return (
+  return movies.map(movie => (
     <>
-      <ul>
-        {movies.map(movie => (
-          <Li
-            isFavourite={movie.isFavourite}
-            key={movie.id}
-            onClick={() => toggleIsFavourite(movie.id)}
-          >
-            {movie.title}
-          </Li>
-        ))}
-      </ul>
+      <Li
+        isFavourite={movie.isFavourite}
+        key={movie.id}
+        onClick={() => toggleIsFavourite(movie.id)}
+      >
+        {movie.title}
+      </Li>
+      {isLoading && <Spinner name="line-scale" color="black" />}
     </>
-  );
+  ));
 };
 
 const mapState = state => ({
-  movies: state.movies
+  movies: state.movies,
+  isLoading: state.loading.effects.movies.fetchMovies
 });
 
 const mapDispatch = dispatch => ({
