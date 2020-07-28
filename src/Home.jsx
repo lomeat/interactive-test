@@ -2,16 +2,16 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-const HomePage = props => {
+const HomePage = ({ fetchMovies, movies, toggleIsFavourite }) => {
   useEffect(() => {
-    props.fetchMovies('https://imdb-api.com/en/API/Top250Movies/k_QBHEB7Le');
-  });
+    fetchMovies('https://imdb-api.com/en/API/Top250Movies/k_QBHEB7Le');
+  }, [fetchMovies]);
 
   return (
     <>
       <ul>
-        {props.movies.map(movie => (
-          <li key={movie.id} onClick={() => props.add(movie)}>
+        {movies.map(movie => (
+          <li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
             {movie.title}
           </li>
         ))}
@@ -20,19 +20,13 @@ const HomePage = props => {
   );
 };
 
-const mapState = state => {
-  const moviesIds = Object.keys(state.movies);
-  return {
-    movies: moviesIds.map(id => ({
-      ...state.movies[id],
-      id
-    }))
-  };
-};
+const mapState = state => ({
+  movies: state.movies
+});
 
 const mapDispatch = dispatch => ({
   fetchMovies: apiUrl => dispatch.movies.fetchMovies(apiUrl),
-  add: movie => dispatch.favouriteMovies.add(movie)
+  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id)
 });
 
 export const Home = connect(mapState, mapDispatch)(HomePage);

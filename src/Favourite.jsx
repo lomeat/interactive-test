@@ -2,12 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-const FavouritePage = props => {
+const FavouritePage = ({ movies, toggleIsFavourite }) => {
+  const filteredMovies = movies.filter(movie => movie.isFavourite === true);
+
   return (
     <>
       <ul>
-        {props.movies.map(movie => (
-          <li key={movie.id} onClick={() => props.remove(movie.id)}>
+        {filteredMovies.map(movie => (
+          <li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
             {movie.title}
           </li>
         ))}
@@ -16,18 +18,12 @@ const FavouritePage = props => {
   );
 };
 
-const mapState = state => {
-  const moviesIds = Object.keys(state.favouriteMovies);
-  return {
-    movies: moviesIds.map(id => ({
-      ...state.favouriteMovies[id],
-      id
-    }))
-  };
-};
+const mapState = state => ({
+  movies: state.movies
+});
 
 const mapDispatch = dispatch => ({
-  remove: id => dispatch.favouriteMovies.remove(id)
+  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id)
 });
 
 export const Favourite = connect(mapState, mapDispatch)(FavouritePage);

@@ -1,52 +1,28 @@
 export const movies = {
-  state: {
-    1: {
+  state: [
+    {
+      id: Date.now,
       title: 'Movie 1',
-      poster: '',
-      rating: 8.4,
-      description: 'Some description',
+      image: '',
+      imDbRating: 9.2,
+      fullTitle: 'Movie 1 (2020)',
       isFavourite: false
-    },
-    2: {
-      title: 'Movie 2',
-      poster: '',
-      rating: 7.6,
-      description: 'Another description',
-      isFavourite: true
+    }
+  ],
+  reducers: {
+    toggleIsFavourite(state, id) {
+      const movie = state.find(movie => movie.id === id);
+      const newState = state.filter(movie => movie.id !== id);
+      return [...newState, { ...movie, isFavourite: !movie.isFavourite }];
     }
   },
-  reducers: {},
   effects: {
     async fetchMovies(state, apiUrl) {
       const response = await fetch(apiUrl);
-      const result = response.json();
+      const result = await response.json();
+      console.log(result);
 
-      return {
-        ...state,
-        ...result.items
-      };
-    }
-  }
-};
-
-export const favouriteMovies = {
-  state: {
-    2: {
-      title: 'Movie 2',
-      poster: '',
-      rating: 7.6,
-      description: 'Another description',
-      isFavourite: true
-    }
-  },
-  reducers: {
-    add: (state, movie) => ({
-      ...state,
-      [Date.now()]: { ...movie, isFavourite: true }
-    }),
-    remove: (state, id) => {
-      delete state[id];
-      return { ...state };
+      return [...state, ...result.items];
     }
   }
 };
