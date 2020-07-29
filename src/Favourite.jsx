@@ -1,15 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import Pagination from 'react-js-pagination';
 
 const FavouritePage = ({ movies, toggleIsFavourite }) => {
   const favMovies = movies.filter(movie => movie.isFavourite === true);
 
-  return favMovies.map(movie => (
-    <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
-      {movie.title}
-    </Li>
-  ));
+  return (
+    <>
+      <Pagination />
+      <Grid>
+        {favMovies.map(movie => (
+          <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
+            {movie.title}
+          </Li>
+        ))}
+      </Grid>
+    </>
+  );
 };
 
 const mapState = state => ({
@@ -23,6 +31,15 @@ const mapDispatch = dispatch => ({
 export const Favourite = connect(mapState, mapDispatch)(FavouritePage);
 
 // Styles
+
+const Grid = styled.div`
+  width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  padding: 30px 0;
+`;
 
 const Li = styled.li`
   :hover {

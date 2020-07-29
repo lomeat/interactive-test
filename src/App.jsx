@@ -23,16 +23,14 @@ const AppProvider = ({ fetchMovies }) => {
       </Navbar>
 
       <Wrapper>
-        <Container>
-          <Switch>
-            <Route path="/favourite">
-              <Favourite />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </Container>
+        <Switch>
+          <Route path="/favourite">
+            <Favourite />
+          </Route>
+          <Route exact path="/">
+            <Home />
+          </Route>
+        </Switch>
       </Wrapper>
       <LiveChat license={licenseId} />
     </Router>
@@ -50,15 +48,8 @@ export const App = connect(null, mapDispatch)(AppProvider);
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-`;
-
-const Container = styled.div`
-  width: 1000px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 30px;
-  grid-row-gap: 30px;
-  padding: 30px 0;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const Navbar = styled.div`
