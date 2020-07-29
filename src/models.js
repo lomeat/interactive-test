@@ -1,16 +1,9 @@
+import { getMovies } from './mock';
+
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export const movies = {
-  state: [
-    {
-      id: Date.now(),
-      title: 'Example State Movie',
-      image: '',
-      imDbRating: 9.2,
-      fullTitle: 'ESM (2020)',
-      isFavourite: true
-    }
-  ],
+  state: getMovies(50),
   reducers: {
     toggleIsFavourite(state, id) {
       return state.map(movie => {
