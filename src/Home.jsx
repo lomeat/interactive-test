@@ -8,7 +8,7 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
   const itemsCountPerPage = 20;
 
   const [activePage, setActivePage] = useState(1);
-  const [moviesPerPage, setMoviesPerPage] = useState(
+  const [currentMovies, setCurrentMovies] = useState(
     movies.slice(0, itemsCountPerPage)
   );
 
@@ -17,11 +17,11 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
     setActivePage(page);
 
     if (page === 1) {
-      setMoviesPerPage(movies.slice(0, itemsCountPerPage));
+      setCurrentMovies(movies.slice(0, itemsCountPerPage));
     } else {
       const start = Number(page * 10 + (page - 1));
       const end = Number(start + itemsCountPerPage);
-      setMoviesPerPage(movies.slice(start, end));
+      setCurrentMovies(movies.slice(start, end));
     }
   };
 
@@ -38,11 +38,14 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
         itemClass="pg-item"
       />
       <Grid>
-        {moviesPerPage.map(movie => (
+        {currentMovies.map(movie => (
           <Li
             key={movie.id}
             isFavourite={movie.isFavourite}
-            onClick={() => toggleIsFavourite(movie.id)}
+            onClick={() => {
+              toggleIsFavourite(movie.id);
+              movie.isFavourite = !movie.isFavourite;
+            }}
           >
             {movie.title}
           </Li>
@@ -70,10 +73,15 @@ export const Home = connect(mapState, mapDispatch)(HomePage);
 const Grid = styled.div`
   width: 1000px;
   display: grid;
+  padding: 30px 0;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 30px;
   grid-row-gap: 30px;
-  padding: 30px 0;
+
+  @media (max-width: 768px) {
+    width: 95vw;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const Li = styled.li`

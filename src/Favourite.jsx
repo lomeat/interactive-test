@@ -39,6 +39,11 @@ const Grid = styled.div`
   grid-column-gap: 30px;
   grid-row-gap: 30px;
   padding: 30px 0;
+
+  @media (max-width: 768px) {
+    width: 95vw;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `;
 
 const Li = styled.li`
