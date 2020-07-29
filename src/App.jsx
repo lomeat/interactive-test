@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 
 import { Home } from './Home';
 import { Favourite } from './Favourite';
 
-export const App = props => {
+const AppProvider = ({ fetchMovies }) => {
+  useEffect(() => {
+    fetchMovies();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <Router>
       <Navbar>
@@ -28,6 +34,14 @@ export const App = props => {
     </Router>
   );
 };
+
+const mapDispatch = dispatch => ({
+  fetchMovies: () => dispatch.movies.fetchMovies()
+});
+
+export const App = connect(null, mapDispatch)(AppProvider);
+
+// Styles
 
 const Wrapper = styled.div`
   display: flex;

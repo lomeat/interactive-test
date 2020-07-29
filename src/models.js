@@ -4,35 +4,11 @@ export const movies = {
   state: [
     {
       id: Date.now(),
-      title: 'Movie 1',
+      title: 'Example State Movie',
       image: '',
       imDbRating: 9.2,
-      fullTitle: 'Movie 1 (2020)',
-      isFavourite: false
-    },
-    {
-      id: Date.now() + 132,
-      title: 'Movie 2',
-      image: '',
-      imDbRating: 9.2,
-      fullTitle: 'Movie 2 (2020)',
-      isFavourite: false
-    },
-    {
-      id: Date.now() + 212,
-      title: 'Movie 3',
-      image: '',
-      imDbRating: 9.2,
-      fullTitle: 'Movie 3 (2020)',
-      isFavourite: false
-    },
-    {
-      id: Date.now() + 334,
-      title: 'Movie 4',
-      image: '',
-      imDbRating: 9.2,
-      fullTitle: 'Movie 4 (2020)',
-      isFavourite: false
+      fullTitle: 'ESM (2020)',
+      isFavourite: true
     }
   ],
   reducers: {
@@ -43,16 +19,18 @@ export const movies = {
         }
         return movie;
       });
+    },
+    updateMovies(state, data) {
+      return [...state, ...data];
     }
   },
   effects: {
-    async fetchMovies(state) {
+    async fetchMovies() {
       const response = await fetch(
         `https://imdb-api.com/en/API/MostPopularMovies/${apiKey}`
       );
       const result = await response.json();
-
-      return [...state, ...result.items];
+      this.updateMovies(result.items);
     }
   }
 };
