@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import LiveChat from 'react-livechat';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
@@ -6,11 +7,13 @@ import { BrowserRouter as Router, Switch, Link, Route } from 'react-router-dom';
 import { Home } from './Home';
 import { Favourite } from './Favourite';
 
+const licenseId = 12112704;
+
 const AppProvider = ({ fetchMovies }) => {
-  useEffect(() => {
-    fetchMovies();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // useEffect(() => {
+  //   fetchMovies();
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   return (
     <Router>
@@ -31,6 +34,7 @@ const AppProvider = ({ fetchMovies }) => {
           </Switch>
         </Container>
       </Wrapper>
+      <LiveChat license={licenseId} />
     </Router>
   );
 };
