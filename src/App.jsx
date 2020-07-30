@@ -8,6 +8,7 @@ import { Home } from './Home';
 import { Favourite } from './Favourite';
 
 const licenseId = 12112704;
+const itemsCountPerPage = 20;
 
 const AppProvider = ({ fetchMovies }) => {
   // useEffect(() => {
@@ -25,10 +26,10 @@ const AppProvider = ({ fetchMovies }) => {
       <Wrapper>
         <Switch>
           <Route path="/favourite">
-            <Favourite />
+            <Favourite itemsCountPerPage={itemsCountPerPage} />
           </Route>
           <Route exact path="/">
-            <Home />
+            <Home itemsCountPerPage={itemsCountPerPage} />
           </Route>
         </Switch>
       </Wrapper>

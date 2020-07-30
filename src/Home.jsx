@@ -4,9 +4,12 @@ import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
 import Pagination from 'react-js-pagination';
 
-const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
-  const itemsCountPerPage = 20;
-
+const HomePage = ({
+  movies,
+  toggleIsFavourite,
+  isLoading,
+  itemsCountPerPage
+}) => {
   const [activePage, setActivePage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState(
     movies.slice(0, itemsCountPerPage)
@@ -19,7 +22,7 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
     if (page === 1) {
       setCurrentMovies(movies.slice(0, itemsCountPerPage));
     } else {
-      const start = (page - 1) * 20;
+      const start = (page - 1) * itemsCountPerPage;
       const end = start + itemsCountPerPage;
       setCurrentMovies(movies.slice(start, end));
     }

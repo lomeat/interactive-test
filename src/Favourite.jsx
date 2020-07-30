@@ -1,17 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Pagination from 'react-js-pagination';
 
-const FavouritePage = ({ movies, toggleIsFavourite }) => {
+const FavouritePage = ({ movies, toggleIsFavourite, itemsCountPerPage }) => {
   const favMovies = movies.filter(movie => movie.isFavourite === true);
+  const [activePage, setActivePage] = useState(1);
+  const [currentMovies, setCurrentMovies] = useState(
+    favMovies.slice(0, itemsCountPerPage)
+  );
+
+  const handlePageChange = page => {
+    console.log(`Active page: ${page}`);
+    setActivePage(page);
+
+    if (page === 1) {
+      setCurrentMovies(favMovies.slice(0, itemsCountPerPage));
+    } else {
+      const start = (page - 1) * itemsCountPerPage;
+      const end = start + itemsCountPerPage;
+      setCurrentMovies(favMovies.slice(start, end));
+    }
+  };
 
   return (
     <>
-      <Pagination />
+      <Pagination
+        activePage={activePage}
+        itemsCountPerPage={itemsCountPerPage}
+        totalItemsCount={favMovies.length}
+        pageRangeDisplayed={5}
+        onChange={handlePageChange}
+        hideNavigation={true}
+        innerClass="pagination"
+        activeClass="pg-item-active"
+        itemClass="pg-item"
+      />
       <Grid>
-        {favMovies.map(movie => (
-          <Li key={movie.id} onClick={() => toggleIsFavourite(movie.id)}>
+        {currentMovies.map(movie => (
+          <Li
+            isFavourite={movie.isFavourite}
+            key={movie.id}
+            onClick={() => {
+              toggleIsFavourite(movie.id);
+              movie.isFavourite = !movie.isFavourite;
+            }}
+          >
             {movie.title}
           </Li>
         ))}
@@ -47,6 +81,7 @@ const Grid = styled.div`
 `;
 
 const Li = styled.li`
+  display: ${props => (props.isFavourite ? 'block' : 'none')};
   :hover {
     cursor: pointer;
   }
