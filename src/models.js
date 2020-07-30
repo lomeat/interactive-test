@@ -3,7 +3,7 @@ import { getMovies } from './mock';
 const apiKey = process.env.REACT_APP_API_KEY;
 
 export const movies = {
-  state: getMovies(60),
+  state: getMovies(250),
   reducers: {
     toggleIsFavourite(state, id) {
       return state.map(movie => {

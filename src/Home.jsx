@@ -19,8 +19,8 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
     if (page === 1) {
       setCurrentMovies(movies.slice(0, itemsCountPerPage));
     } else {
-      const start = Number(page * 10 + (page - 1));
-      const end = Number(start + itemsCountPerPage);
+      const start = (page - 1) * 20;
+      const end = start + itemsCountPerPage;
       setCurrentMovies(movies.slice(start, end));
     }
   };
@@ -31,8 +31,9 @@ const HomePage = ({ movies, toggleIsFavourite, isLoading }) => {
         activePage={activePage}
         itemsCountPerPage={itemsCountPerPage}
         totalItemsCount={movies.length}
-        pageRangeDisplayed={3}
+        pageRangeDisplayed={5}
         onChange={handlePageChange}
+        hideNavigation={true}
         innerClass="pagination"
         activeClass="pg-item-active"
         itemClass="pg-item"
