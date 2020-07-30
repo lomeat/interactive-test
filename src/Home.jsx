@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Spinner from 'react-spinkit';
@@ -8,12 +8,23 @@ const HomePage = ({
   movies,
   toggleIsFavourite,
   isLoading,
-  itemsCountPerPage
+  itemsCountPerPage,
+  setMovies
 }) => {
+  const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+
   const [activePage, setActivePage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState(
     movies.slice(0, itemsCountPerPage)
   );
+
+  useEffect(() => {
+    if (localStorageMovies !== null && localStorageMovies.length >= 1) {
+      setMovies(localStorageMovies);
+      setCurrentMovies(movies.slice(0, itemsCountPerPage));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movies]);
 
   const handlePageChange = page => {
     console.log(`Active page: ${page}`);
@@ -67,7 +78,8 @@ const mapState = state => ({
 
 const mapDispatch = dispatch => ({
   fetchMovies: async () => dispatch.movies.fetchMovies(),
-  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id)
+  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id),
+  setMovies: data => dispatch.movies.setMovies(data)
 });
 
 export const Home = connect(mapState, mapDispatch)(HomePage);

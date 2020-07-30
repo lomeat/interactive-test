@@ -1,14 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import Pagination from 'react-js-pagination';
 
-const FavouritePage = ({ movies, toggleIsFavourite, itemsCountPerPage }) => {
-  const favMovies = movies.filter(movie => movie.isFavourite === true);
+const FavouritePage = ({
+  movies,
+  toggleIsFavourite,
+  itemsCountPerPage,
+  setMovies
+}) => {
+  // const favMovies = movies.filter(movie => movie.isFavourite === true);
+  // const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+
+  const [favMovies, setFavMovies] = useState(
+    // localStorageMovies.filter(movie => movie.isFavourite === true)
+    movies.filter(movie => movie.isFavourite === true)
+  );
   const [activePage, setActivePage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState(
     favMovies.slice(0, itemsCountPerPage)
   );
+
+  // useEffect(() => {
+  //   if (localStorageMovies !== null && localStorageMovies.length >= 1) {
+  //     setMovies(localStorageMovies);
+  //     setFavMovies(movies.filter(movie => movie.isFavourite === true));
+  //     setCurrentMovies(favMovies.slice(0, itemsCountPerPage));
+  //   }
+
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
   const handlePageChange = page => {
     console.log(`Active page: ${page}`);
@@ -59,7 +80,8 @@ const mapState = state => ({
 });
 
 const mapDispatch = dispatch => ({
-  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id)
+  toggleIsFavourite: id => dispatch.movies.toggleIsFavourite(id),
+  setMovies: data => dispatch.movies.setMovies(data)
 });
 
 export const Favourite = connect(mapState, mapDispatch)(FavouritePage);
