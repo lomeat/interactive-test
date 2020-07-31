@@ -21,16 +21,10 @@ const FavouritePage = ({
   );
 
   const handlePageChange = page => {
-    console.log(`Active page: ${page}`);
     setActivePage(page);
-
-    if (page === 1) {
-      setCurrentMovies(favMovies.slice(0, itemsCountPerPage));
-    } else {
-      const start = (page - 1) * itemsCountPerPage;
-      const end = start + itemsCountPerPage;
-      setCurrentMovies(favMovies.slice(start, end));
-    }
+    const start = (page - 1) * itemsCountPerPage;
+    const end = start + itemsCountPerPage;
+    setCurrentMovies(movies.slice(start, end));
   };
 
   return (

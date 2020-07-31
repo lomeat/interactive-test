@@ -11,6 +11,7 @@ const licenseId = 12112704;
 const itemsCountPerPage = 20;
 
 const AppProvider = ({ fetchMovies }) => {
+  // TODO: Uncomment to use API movies from IMDb
   // useEffect(() => {
   //   fetchMovies();
   //   // eslint-disable-next-line react-hooks/exhaustive-deps
