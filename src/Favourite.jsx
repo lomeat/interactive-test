@@ -9,27 +9,16 @@ const FavouritePage = ({
   itemsCountPerPage,
   setMovies
 }) => {
-  // const favMovies = movies.filter(movie => movie.isFavourite === true);
-  // const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
+  const favMovies = movies.filter(movie => movie.isFavourite === true);
 
-  const [favMovies, setFavMovies] = useState(
-    // localStorageMovies.filter(movie => movie.isFavourite === true)
-    movies.filter(movie => movie.isFavourite === true)
-  );
+  // const [favMovies, setFavMovies] = useState(
+  //   // localStorageMovies.filter(movie => movie.isFavourite === true)
+  //   movies.filter(movie => movie.isFavourite === true)
+  // );
   const [activePage, setActivePage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState(
     favMovies.slice(0, itemsCountPerPage)
   );
-
-  // useEffect(() => {
-  //   if (localStorageMovies !== null && localStorageMovies.length >= 1) {
-  //     setMovies(localStorageMovies);
-  //     setFavMovies(movies.filter(movie => movie.isFavourite === true));
-  //     setCurrentMovies(favMovies.slice(0, itemsCountPerPage));
-  //   }
-
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
 
   const handlePageChange = page => {
     console.log(`Active page: ${page}`);

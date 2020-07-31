@@ -11,20 +11,19 @@ const HomePage = ({
   itemsCountPerPage,
   setMovies
 }) => {
-  const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
-
+  // const localStorageMovies = JSON.parse(localStorage.getItem('movies'));
   const [activePage, setActivePage] = useState(1);
   const [currentMovies, setCurrentMovies] = useState(
     movies.slice(0, itemsCountPerPage)
   );
 
-  useEffect(() => {
-    if (localStorageMovies !== null && localStorageMovies.length >= 1) {
-      setMovies(localStorageMovies);
-      setCurrentMovies(movies.slice(0, itemsCountPerPage));
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movies]);
+  // useEffect(() => {
+  //   if (localStorageMovies !== null && localStorageMovies.length >= 1) {
+  //     setMovies(localStorageMovies);
+  //     setCurrentMovies(movies.slice(0, itemsCountPerPage));
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [movies]);
 
   const handlePageChange = page => {
     console.log(`Active page: ${page}`);
